@@ -7,10 +7,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id String @id @default(uuid())
-  name String @unique
-  email String 
+model Users {
+  id    String @id @default(uuid())
+  name  String
+  email String @unique
+
+  snacks Snacks[]
+
 
   @@map("users")
+}
+
+model Snacks {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  date        DateTime @default(now())
+  inDiet      Boolean
+
+  user_id String
+  user    Users  @relation(fields: [user_id], references: [id])
+
+  @@map("snacks")
 }

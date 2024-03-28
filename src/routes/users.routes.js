@@ -11,7 +11,9 @@ const usersController = new UsersController()
 
 // Rotas - Users ('/users/create')
 userRoutes.post('/create', usersController.create)
+userRoutes.put('/update', usersController.update)
+userRoutes.get('/', usersController.findMany)
+userRoutes.get('/findUnique', usersController.findUnique)
+userRoutes.delete('/delete', usersController.delete)
 
 module.exports = userRoutes
-// Users ('/users/')
-//userRoutes.get('/',)
