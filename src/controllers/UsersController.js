@@ -6,12 +6,23 @@ class UsersController {
 
     async create(request, response) {
         try {
-            const { name, email } = request.body
+            const { name, email, snackName, snackDescription, snackDate, inDiet } = request.body
             const user = await prisma.users.create({
                 data: {
                     name,
-                    email
-
+                    email,
+                    Snacks: {
+                        createMany: {
+                            data: [
+                                {
+                                    name: snackName,
+                                    description: snackDescription,
+                                    date: snackDate,
+                                    inDiet: inDiet
+                                }
+                            ]
+                        }
+                    }
                 }
             })
             response.json(user)

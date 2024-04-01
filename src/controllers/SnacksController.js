@@ -1,18 +1,18 @@
 const { PrismaClient } = require("@prisma/client");
+
 const prisma = new PrismaClient()
 
 class SnacksController {
 
     async create(request, response) {
         try {
-            const { name, description, date, inDiet, user_id } = request.body
-            const snack = await prisma.snack.create({
+            const { name, description, inDiet, user_id } = request.body
+            const snack = await prisma.snacks.create({
                 data: {
                     name,
                     description,
-                    date,
                     inDiet,
-                    user_id
+                    user_id: user_id
                 }
             })
             response.json(snack)
@@ -23,17 +23,16 @@ class SnacksController {
 
     async update(request, response) {
         try {
-            const { id, name, description, date, inDiet } = request.body
-            const snack = await prisma.snack.update({
+            const { id, name, description, inDiet, user_id } = request.body
+            const snack = await prisma.snacks.update({
                 where: {
                     id: id
                 },
                 data: {
                     name,
                     description,
-                    date,
                     inDiet,
-
+                    user_id: user_id
                 }
             }
             )
@@ -47,7 +46,7 @@ class SnacksController {
     async delete(request, response) {
         try {
             const { id } = request.body
-            const snack = await prisma.snack.delete({
+            const snack = await prisma.snacks.delete({
                 where: {
                     id: id
                 }
@@ -58,9 +57,9 @@ class SnacksController {
         }
     }
 
-    async findMany(response) {
+    async findMany(request, response) {
         try {
-            const snack = await prisma.snack.findMany()
+            const snack = await prisma.snacks.findMany()
             response.json(snack)
         } catch (err) {
             return response.status(409).send()
@@ -69,7 +68,7 @@ class SnacksController {
     async findById(request, response) {
         try {
             const { id } = request.body
-            const snack = await prisma.snack.findById({
+            const snack = await prisma.snacks.findUnique({
                 where: {
                     id: id
                 }
