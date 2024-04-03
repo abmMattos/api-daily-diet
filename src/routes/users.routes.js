@@ -13,6 +13,7 @@ const usersController = new UsersController()
 userRoutes.post('/create', usersController.create)
 userRoutes.put('/update', usersController.update)
 userRoutes.get('/', usersController.findMany)
+userRoutes.get('/userSnack', usersController.findManyUserSnack)
 userRoutes.get('/findUnique', usersController.findUnique)
 userRoutes.delete('/delete', usersController.delete)
 

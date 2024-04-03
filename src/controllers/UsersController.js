@@ -86,6 +86,23 @@ class UsersController {
             return response.status(409).send()
         }
     }
+
+    async findManyUserSnack(request, response) {
+        try {
+            const { id } = request.body
+            const user = await prisma.users.findUnique({
+                where: {
+                    id: id
+                },
+                include: {
+                    snacks: true
+                }
+            })
+            return response.json(user)
+        } catch (err) {
+            return response.status(409).send()
+        }
+    }
 }
 
 
