@@ -11,6 +11,7 @@ model Users {
   id    String @id @default(uuid())
   name  String
   email String @unique
+  senha String
 
   snacks Snacks[]
 

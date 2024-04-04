@@ -7,7 +7,6 @@ const routes = Router()
 
 // Rotas dos controllers
 routes.use('/users', usersRoutes)
-
 routes.use('/snacks', snacksRoutes)
 
 module.exports = routes
