@@ -59,6 +59,11 @@ Informações sobre banco de dados e tabelas:
 
 O banco de dados utilizado foi o MYSQL
 
+![Modelo Relacional](https://github.com/abmMattos/api-daily-diet/assets/112213284/598cd270-a77f-42e0-b086-0e407b9c06c7)
+
+
+
+
 
 
 
