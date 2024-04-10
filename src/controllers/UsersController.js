@@ -174,6 +174,47 @@ class UsersController {
         }
     }
 
+    async countBestSequenceInDietSnacks(request, response) {
+        try {
+            const { id } = request.body;
+            const user = await prisma.users.findUnique({
+                where: {
+                    id: id
+                }
+            });
+
+            if (!user) {
+                return response.status(404).json({ error: "Usuário não encontrado" });
+            }
+
+            const snacks = await prisma.snacks.findMany({
+                where: {
+                    user_id: id,
+                }
+            });
+
+            var snackDiet = 0;
+            var maior = 1;
+
+            for (var i = snacks.length - 1; i >= 0; i--) {
+                if (numbers[i]["inDiet"] == false) {
+                    if (snackDiet > maior) {
+                        maior = snackDiet;
+                        snackDiet = 0;
+                    }
+                  }else {
+                    snackDiet++;
+                  }
+              }
+              
+
+            return response.json({ userId: id, snacksCount: snacksCount });
+        } catch (err) {
+            console.error("Erro ao contar snacks por usuário:", err);
+            return response.status(500).json({ error: "Erro interno do servidor" });
+        }
+    }
+
     async login(request, response) {
         try {
             const { email, senha } = request.body;
