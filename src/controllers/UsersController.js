@@ -23,14 +23,15 @@ class UsersController {
 
     async update(request, response) {
         try {
-            const { id, name, email } = request.body
+            const { id, name, email, senha } = request.body
             const user = await prisma.users.update({
                 where: {
                     id: id
                 },
                 data: {
                     name,
-                    email
+                    email,
+                    senha
 
                 }
             })
@@ -56,7 +57,13 @@ class UsersController {
 
     async findMany(request, response) {
         try {
-            const user = await prisma.users.findMany();
+            const user = await prisma.users.findMany({
+                select: {
+                    id: true,
+                    name: true,
+                    email: true
+                }
+            });
             response.json(user)
         } catch (err) {
             return response.status(409).send()
@@ -69,6 +76,11 @@ class UsersController {
             const user = await prisma.users.findUnique({
                 where: {
                     id: id
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    email: true
                 }
             })
             response.json(user)
@@ -85,8 +97,8 @@ class UsersController {
                     id: id
                 },
                 include: {
-                    snacks: true
-                }
+                    snacks: true,
+                },
             })
             return response.json(user)
         } catch (err) {
@@ -190,15 +202,18 @@ class UsersController {
             const snacks = await prisma.snacks.findMany({
                 where: {
                     user_id: id,
+                },
+                orderBy:{
+                    date: 'asc'
                 }
             });
 
             var snackDiet = 0;
-            var maior = 1;
+            var maior = 0;
 
             for (var i = snacks.length - 1; i >= 0; i--) {
-                if (numbers[i]["inDiet"] == false) {
-                    if (snackDiet > maior) {
+                if (snacks[i]["inDiet"] == false) {
+                    if (snackDiet >= maior) {
                         maior = snackDiet;
                         snackDiet = 0;
                     }
@@ -207,8 +222,7 @@ class UsersController {
                   }
               }
               
-
-            return response.json({ userId: id, snacksCount: snacksCount });
+            return response.json({ maior });
         } catch (err) {
             console.error("Erro ao contar snacks por usuário:", err);
             return response.status(500).json({ error: "Erro interno do servidor" });
@@ -230,10 +244,8 @@ class UsersController {
             if (!senhaBate) {
                 return response.status(401).json({ error: 'Senha errada' });
             }
-            const token = jwt.sign({ id: user.id }, 'chave', {
-                expiresIn: '1h',
-            });
-            response.status(200).json({ token });
+            const token = jwt.sign({ id: user.id }, 'chave', { expiresIn: 40000 });
+            response.status(200).json({ auth: true, token });
         } catch (error) {
             response.status(500).json({ error: 'Login falhou' });
         }
