@@ -21,7 +21,7 @@ RF9 - O sistema deve permitir mostrar as refeições que fazem parte da dieta
 RF10 - O sistema deve permitir mostrar as refeições que não fazem parte da dieta
 RF11 - O sistema deve permitir mostrar qual foi a melhor sequência de dias dentro da dieta
 
-Histórias do usuário:
+### Histórias do usuário:
 História de usuário 1: Como usuário desse sistema, eu quero poder fazer o meu cadastro para criar o registros das minhas refeições.
 Cenário: Fazer cadastro do perfil
 Dado que estou criando meu usuário no sistema
@@ -55,7 +55,7 @@ Então o sistema deve permitir que eu faça esse tipo de alteração nos meus re
 
 
 
-Informações sobre banco de dados e tabelas:
+### Informações sobre banco de dados e tabelas:
 
 O banco de dados utilizado foi o MYSQL
 
@@ -70,39 +70,41 @@ O banco de dados utilizado foi o MYSQL
 Rotas relacionados ao usuário:
 Rotas - Users ('/users/create')	
 
-Criar usuário: userRoutes.post('/create', usersController.create)
+Criar usuário: '/create',
 
-Dar update: userRoutes.put('/update', usersController.update)
+Dar update: '/update'
 
-Fazer login: userRoutes.post('/login', usersController.login)
+Fazer login: '/login'
 
-Deletar usuário: userRoutes.delete('/delete', usersController.delete)
+Deletar usuário: '/delete'
 
-Procurar usuários: userRoutes.get('/', usersController.findMany)
+Procurar usuários: '/'
 
 
 
-Rotas relacionadas às refeições:
+### Rotas relacionadas às refeições:
+Rotas - Snacks ('/snacks/create')
 
-Procurar todas as refeições: userRoutes.get('/usersnack', usersController.findManyUserSnack)
+Criar refeição: '/create'
 
-Procurar uma refeição: userRoutes.get('/findunique', usersController.findUnique)
+Procurar todas as refeições: '/usersnack'
 
-Contagem de refeições: userRoutes.get('/countusersnacks', usersController.countUserSnacks)
+Procurar uma refeição: '/findunique'
 
-Contagem das refeições dentro da dieta:userRoutes.get('/countusersnacksindiet', usersController.countUserSnacksInDiet)
+Contagem de refeições:'/countusersnacks'
 
-Contagem das refeições fora da dieta: userRoutes.get('/countusersnacksoutdiet', usersController.countUserSnacksOutDiet)
+Contagem das refeições dentro da dieta: '/countusersnacksindiet'
 
-Mostrar melhor sequência dentro da dieta: userRoutes.get('/bestdietsequence', 
-usersController.countBestSequenceInDietSnacks)
+Contagem das refeições fora da dieta: '/countusersnacksoutdiet'
 
-Verificação do token: snacksRoutes.post('/create', verifyToken, snacksController.create)
+Mostrar melhor sequência dentro da dieta: '/bestdietsequence', 
 
-Buscar todas as refeições: snacksRoutes.get('/', snacksController.findMany)
+Verificação do token: '/login'
 
-Procurar refeição pelo ID: snacksRoutes.get('/findById', snacksController.findById)
+Buscar todas as refeições: '/'
 
-Editar informações da refeição: snacksRoutes.put('/update', verifyToken, snacksController.update)
+Procurar refeição pelo ID: '/findById'
 
-Deletar refeição: snacksRoutes.delete('/delete', verifyToken, snacksController.delete)
+Editar informações da refeição: '/update'
+
+Deletar refeição: '/delete'
